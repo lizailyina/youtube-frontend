@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import styled from "styled-components";
 
@@ -64,19 +65,49 @@ const Link = styled.span`
 `;
 
 const SignIn = () => {
+
+  const [loginName, setLoginName] = React.useState("");
+  const [loginPassword, setLoginPassword] = React.useState("");
+
+  const [name, setName] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("");
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("auth/signin", { name: loginName, password: loginPassword });
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+      alert("Login failed, check your login and password")
+    }
+  }
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("auth/signup", { name, email, password });
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+      alert("SignUp failed, email and name must be unique")
+    }
+  }
+
   return (
     <Container>
       <Wrapper>
         <Title>Sign in</Title>
-        <SubTitle>to continue to LamaTube</SubTitle>
-        <Input placeholder="username" />
-        <Input type="password" placeholder="password" />
-        <Button>Sign in</Button>
+        <SubTitle>to continue to NewTube</SubTitle>
+        <Input value={loginName} onChange={(e) => setLoginName(e.target.value)} placeholder="username" />
+        <Input value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} type="password" placeholder="password" />
+        <Button onClick={handleSignIn}>Sign in</Button>
         <Title>or</Title>
-        <Input placeholder="username" />
-        <Input placeholder="email" />
-        <Input type="password" placeholder="password" />
-        <Button>Sign up</Button>
+        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="username" />
+        <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email" />
+        <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password" />
+        <Button onClick={handleSignUp}>Sign up</Button>
       </Wrapper>
       <More>
         English(USA)

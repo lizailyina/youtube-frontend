@@ -1,6 +1,14 @@
+import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import TimeAgo from 'javascript-time-ago'
+
+import en from 'javascript-time-ago/locale/en'
+
+TimeAgo.addDefaultLocale(en)
+
+const timeAgo = new TimeAgo('en-US')
 
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "360px"};
@@ -51,23 +59,35 @@ const Info = styled.div`
   color: ${({ theme }) => theme.textSoft};
 `;
 
-const Card = ({ type }) => {
+const Card = ({ type, video }) => {
+
+  const [user, setUser] = React.useState({});
+
+  React.useEffect(() => {
+    const fetchVideos = async () => {
+      const { data } = await axios.get(`users/find/${video.userId}`);
+      setUser(data);
+    }
+
+    fetchVideos();
+  }, [video.userId])
+
   return (
     <Link to="/video/test" style={{ textDecoration: "none" }}>
       <Container type={type}>
         <Image
           type={type}
-          src="https://i9.ytimg.com/vi_webp/k3Vfj-e1Ma4/mqdefault.webp?v=6277c159&sqp=CIjm8JUG&rs=AOn4CLDeKmf_vlMC1q9RBEZu-XQApzm6sA"
+          src={video.imageUrl}
         />
         <Details type={type}>
           <ChannelImage
             type={type}
-            src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo"
+            src={video.description}
           />
           <Texts>
-            <Title>Test Video</Title>
+            <Title>{video.title}</Title>
             <ChannelName>Lama Dev</ChannelName>
-            <Info>660,908 views • 1 day ago</Info>
+            <Info>{video.views} views • {timeAgo.format(new Date(video.createdAt))}</Info>
           </Texts>
         </Details>
       </Container>
