@@ -1,7 +1,8 @@
 import axios from "axios";
 import { signInWithPopup } from "firebase/auth";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth, provider } from "../firebase";
 import { loginStart, loginSucces, loginError } from "../redux/slices/user";
@@ -78,6 +79,12 @@ const SignIn = () => {
   const [email, setEmail] = React.useState("");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
+
+  React.useEffect(() => {
+    if (user) navigate("/");
+  }, [user])
 
   const handleSignIn = async (e) => {
     e.preventDefault();

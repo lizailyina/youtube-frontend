@@ -26,27 +26,21 @@ function App() {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Container>
-        <BrowserRouter>
-          <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
-          <Main>
-            <Navbar />
-            <Wrapper>
-              <Routes>
-                <Route path="/">
-                  <Route index element={<Home type="random" />} />
-                  <Route path="trend" element={<Home type="trend" />} />
-                  <Route path="sub" element={<Home type="sub" />} />
-                  <Route path="signin" element={<SignIn />} />
-                  <Route path="video">
-                    <Route path=":id" element={<Video />} />
-                  </Route>
-                </Route>
-              </Routes>
-            </Wrapper>
-          </Main>
-        </BrowserRouter>
+        <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Main>
+          <Navbar />
+          <Wrapper>
+            <Routes>
+              <Route path="/" exact element={<Home type="random" />} />
+              <Route path="/trend" exact element={<Home type="trend" />} />
+              <Route path="/sub" exact element={<Home type="sub" />} />
+              <Route path="/signin" exact element={<SignIn />} />
+              <Route path="/video/:id" element={<Video />} />
+            </Routes>
+          </Wrapper>
+        </Main>
       </Container>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 

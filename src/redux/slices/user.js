@@ -14,7 +14,6 @@ const userSlice = createSlice({
       state.loading = true
     },
     loginSucces: (state, action) => {
-      console.log(action.payload, "!!!!!!!!");
       state.loading = false;
       state.user = action.payload;
     },

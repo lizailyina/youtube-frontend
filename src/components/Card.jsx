@@ -6,7 +6,7 @@ import TimeAgo from 'javascript-time-ago'
 
 import en from 'javascript-time-ago/locale/en'
 
-TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(en)
 
 const timeAgo = new TimeAgo('en-US')
 
@@ -72,7 +72,6 @@ const Card = ({ type, video }) => {
     fetchVideos();
   }, [video.userId])
 
-  console.log(video);
 
   return (
     <Link to={`/video/${video._id}`} style={{ textDecoration: "none" }}>

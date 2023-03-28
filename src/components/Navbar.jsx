@@ -104,13 +104,8 @@ const Navbar = () => {
 
   const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.user);
-
-  React.useEffect(() => {
-    if (user) navigate("/");
-  }, [user])
 
   return (
     <>
