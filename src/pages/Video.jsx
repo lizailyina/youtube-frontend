@@ -6,6 +6,11 @@ import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import Comments from "../components/Comments";
 import Card from "../components/Card";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
+import TimeAgo from 'javascript-time-ago'
+
+const timeAgo = new TimeAgo('en-US')
 
 const Container = styled.div`
   display: flex;
@@ -105,6 +110,29 @@ const Subscribe = styled.button`
 `;
 
 const Video = () => {
+
+  const location = useLocation().pathname.split('/')[2];
+
+  const [video, setVideo] = React.useState({});
+  const [user, setUser] = React.useState({});
+  console.log(location);
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const videoData = await axios.get(`/videos/find/${location}`);
+        const userData = await axios.get(`/users/find/${videoData.data.userId}`);
+        setVideo(videoData.data);
+        setUser(userData.data);
+      } catch (err) {
+        alert(err);
+        console.log(err);
+      }
+    }
+
+    fetchData();
+  }, [location]);
+
   return (
     <Container>
       <Content>
@@ -114,17 +142,17 @@ const Video = () => {
             height="720"
             src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
             title="YouTube video player"
-            frameborder="0"
+            // frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
+            allowFullScreen
           ></iframe>
         </VideoWrapper>
-        <Title>Test Video</Title>
+        <Title>{video.title}</Title>
         <Details>
-          <Info>7,948,154 views • Jun 22, 2022</Info>
+          <Info>{video.views} views • {video.createdAt && timeAgo.format(new Date(video.createdAt))}</Info>
           <Buttons>
             <Button>
-              <ThumbUpOutlinedIcon /> 123
+              <ThumbUpOutlinedIcon /> {video.likes?.length}
             </Button>
             <Button>
               <ThumbDownOffAltOutlinedIcon /> Dislike
@@ -140,37 +168,34 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src="https://yt3.ggpht.com/yti/APfAmoE-Q0ZLJ4vk3vqmV4Kwp0sbrjxLyB8Q4ZgNsiRH=s88-c-k-c0x00ffffff-no-rj-mo" />
+            <Image src={user.img} />
             <ChannelDetail>
-              <ChannelName>Lama Dev</ChannelName>
-              <ChannelCounter>200K subscribers</ChannelCounter>
+              <ChannelName>{user.name}</ChannelName>
+              <ChannelCounter>{user.subscribers}</ChannelCounter>
               <Description>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Doloribus laborum delectus unde quaerat dolore culpa sit aliquam
-                at. Vitae facere ipsum totam ratione exercitationem. Suscipit
-                animi accusantium dolores ipsam ut.
+                {video.description}
               </Description>
             </ChannelDetail>
           </ChannelInfo>
           <Subscribe>SUBSCRIBE</Subscribe>
         </Channel>
         <Hr />
-        <Comments/>
+        <Comments />
       </Content>
       <Recommendation>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
-        <Card type="sm"/>
+        {/* <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" />
+        <Card type="sm" /> */}
       </Recommendation>
     </Container>
   );

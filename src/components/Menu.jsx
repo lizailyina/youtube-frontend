@@ -124,7 +124,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
         </Item>
         <Hr />
         {
-          !user &&
+          !user.user &&
           <>
             <Login>
               Sign in to like videos, comment, and subscribe.
