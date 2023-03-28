@@ -21,10 +21,19 @@ const userSlice = createSlice({
       state.loading = true;
       state.error = true;
     },
-    logout: () => initialState
+    logout: () => initialState,
+    sub: (state, action) => {
+      if (!state.user.subscribed.includes(action.payload._id)) {
+        state.user.subscribed.push(action.payload._id);
+      }
+    },
+    unsub: (state, action) => {
+      state.user.subscribed.splice(state.user.subscribed.findIndex(
+        (userId) => (userId === action.payload._id)), 1);
+    },
   }
 })
 
-export const { loginStart, loginSucces, loginError, logout } = userSlice.actions
+export const { loginStart, loginSucces, loginError, logout, sub, unsub } = userSlice.actions
 
 export default userSlice.reducer;

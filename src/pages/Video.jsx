@@ -14,6 +14,7 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import { useDispatch, useSelector } from "react-redux";
 import { dislike, fetchError, fetchStart, fetchSucces, like, undislike, unlike } from "../redux/slices/video";
+import { sub, unsub } from "../redux/slices/user";
 
 TimeAgo.addLocale(en);
 
@@ -116,6 +117,17 @@ const Subscribe = styled.button`
   cursor: pointer;
 `;
 
+const Subscribed = styled.button`
+  background-color: #999;
+  font-weight: 500;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  height: max-content;
+  padding: 10px 20px;
+  cursor: pointer;
+`;
+
 const Video = () => {
 
   const location = useLocation().pathname.split('/')[2];
@@ -183,6 +195,18 @@ const Video = () => {
     }
   }
 
+  const handleSub = async () => {
+    if (currentUser.subscribed.includes(user._id)) {
+      await axios.put(`/users/unsub/${user._id}`);
+      dispatch(unsub(user));
+      setUser((prev) => { return { ...prev, subscribers: prev.subscribers - 1 } })
+    } else {
+      await axios.put(`/users/sub/${user._id}`);
+      dispatch(sub(user));
+      setUser((prev) => { return { ...prev, subscribers: prev.subscribers + 1 } })
+    }
+  }
+
   return (
     <Container>
       <Content>
@@ -242,7 +266,19 @@ const Video = () => {
               </Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe>SUBSCRIBE</Subscribe>
+          {
+            currentUser && currentUser._id !== user._id &&
+            <>
+              {
+
+                currentUser?.subscribed.includes(user._id) ? (
+                  <Subscribed onClick={handleSub}>SUBSCRIBED</Subscribed>
+                ) : (
+                  <Subscribe onClick={handleSub}>SUBSCRIBE</Subscribe>
+                )
+              }
+            </>
+          }
         </Channel>
         <Hr />
         <Comments />
