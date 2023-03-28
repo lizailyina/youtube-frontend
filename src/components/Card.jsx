@@ -82,11 +82,11 @@ const Card = ({ type, video }) => {
         <Details type={type}>
           <ChannelImage
             type={type}
-            src={video.description}
+            src={user.imageUrl}
           />
           <Texts>
             <Title>{video.title}</Title>
-            <ChannelName>Lama Dev</ChannelName>
+            <ChannelName>{user.name}</ChannelName>
             <Info>{video.views} views • {timeAgo.format(new Date(video.createdAt))}</Info>
           </Texts>
         </Details>

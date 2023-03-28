@@ -18,7 +18,6 @@ const Home = ({ type }) => {
       const { data } = await axios.get(`videos/${type}`);
       setVideos(data);
     }
-
     fetchVideos();
   }, [type])
 

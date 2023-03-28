@@ -1,6 +1,10 @@
 import axios from "axios";
+import { signInWithPopup } from "firebase/auth";
 import React from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { auth, provider } from "../firebase";
+import { loginStart, loginSucces, loginError } from "../redux/slices/user";
 
 const Container = styled.div`
   display: flex;
@@ -73,26 +77,43 @@ const SignIn = () => {
   const [password, setPassword] = React.useState("");
   const [email, setEmail] = React.useState("");
 
+  const dispatch = useDispatch();
+
   const handleSignIn = async (e) => {
     e.preventDefault();
+    dispatch(loginStart());
     try {
       const { data } = await axios.post("auth/signin", { name: loginName, password: loginPassword });
-      console.log(data);
+      dispatch(loginSucces(data));
     } catch (err) {
       console.log(err);
       alert("Login failed, check your login and password")
+      dispatch(loginError());
     }
   }
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    dispatch(loginStart())
     try {
       const { data } = await axios.post("auth/signup", { name, email, password });
-      console.log(data);
+      dispatch(loginSucces(data));
     } catch (err) {
       console.log(err);
+      dispatch(loginError());
       alert("SignUp failed, email and name must be unique")
     }
+  }
+
+  const signInWithGoogle = () => {
+    dispatch(loginStart())
+    signInWithPopup(auth, provider).then(async (res) => {
+      const { data } = await axios.post('auth/google', { name: res.user.displayName, email: res.user.email, img: res.user.photoURL })
+      dispatch(loginSucces(data));
+    }).catch((err) => {
+      console.log(err);
+      dispatch(loginError());
+    });
   }
 
   return (
@@ -108,6 +129,8 @@ const SignIn = () => {
         <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="email" />
         <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="password" />
         <Button onClick={handleSignUp}>Sign up</Button>
+        <Title>or</Title>
+        <Button onClick={signInWithGoogle}>Sign in with Google</Button>
       </Wrapper>
       <More>
         English(USA)
