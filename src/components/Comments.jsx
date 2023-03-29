@@ -11,13 +11,14 @@ const Container = styled.div``;
 const NewComment = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  color: ${({ theme }) => theme.text};
 `;
 
 const Avatar = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  background-color: #999;
 `;
 
 const Input = styled.input`
@@ -44,7 +45,6 @@ const Comments = ({ videoId }) => {
       dispatch(fetchStart());
       try {
         const commentsData = await axios.get(`/comments/${videoId}`);
-        console.log(commentsData);
         dispatch(fetchSucces(commentsData.data));
       } catch (err) {
         alert(err);
@@ -64,7 +64,6 @@ const Comments = ({ videoId }) => {
     }
     try {
       const { data } = await axios.post("/comments", comment);
-      console.log(data);
       dispatch(addComment(data));
       setValue("");
     } catch (err) {
@@ -73,18 +72,16 @@ const Comments = ({ videoId }) => {
     }
   }
 
-  console.log(comments);
-
   return (
     <Container>
       <NewComment>
-        <Avatar src={user.img} />
+        <Avatar src={user?.img} />
         <Input value={value} onChange={(e) => setValue(e.target.value)} placeholder="Add a comment..." />
-        <SendIcon style={{ color: "white" }} onClick={() => handleAdd()} />
+        <SendIcon onClick={() => handleAdd()} />
       </NewComment>
       {
         comments.map((obj) =>
-          <Comment comment={obj} />
+          <Comment key={obj._id} comment={obj} />
         )
       }
     </Container>

@@ -5,7 +5,8 @@ import axios from "axios"
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 150px;
   flex-wrap: wrap;
 `;
 
@@ -22,13 +23,15 @@ const Home = ({ type }) => {
   }, [type])
 
   return (
-    <Container>
-      {
-        videos.map((obj) =>
-          <Card video={obj} key={obj._id} />
-        )
-      }
-    </Container>
+    <>
+      <Container>
+        {
+          videos.map((obj) =>
+            <Card video={obj} key={obj._id} />
+          )
+        }
+      </Container>
+    </>
   );
 };
 

@@ -4,17 +4,15 @@ import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
-import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
 import Comments from "../components/Comments";
 import Card from "../components/Card";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import { useDispatch, useSelector } from "react-redux";
 import { dislike, fetchError, fetchStart, fetchSucces, like, undislike, unlike } from "../redux/slices/video";
 import { sub, unsub } from "../redux/slices/user";
+import TimeAgo from 'javascript-time-ago'
 
 TimeAgo.addLocale(en);
 
@@ -28,7 +26,8 @@ const Container = styled.div`
 const Content = styled.div`
   flex: 5;
 `;
-const VideoWrapper = styled.div``;
+const VideoWrapper = styled.div`
+`;
 
 const Title = styled.h1`
   font-size: 18px;
@@ -129,6 +128,12 @@ const Subscribed = styled.button`
   cursor: pointer;
 `;
 
+const VideoFrame = styled.video`
+  max-height: 720px;
+  width: 100%;
+  object-fit: cover;
+`
+
 const Video = () => {
 
   const location = useLocation().pathname.split('/')[2];
@@ -212,15 +217,7 @@ const Video = () => {
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
-            width="100%"
-            height="720"
-            src="https://www.youtube-nocookie.com/embed/k3Vfj-e1Ma4"
-            title="YouTube video player"
-            // frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          <VideoFrame src={video.videoUrl} controls autoPlay muted={false} />
         </VideoWrapper>
         <Title>{video?.title}</Title>
         <Details>
@@ -247,12 +244,6 @@ const Video = () => {
               }
               Dislike
             </Button>
-            <Button>
-              <ReplyOutlinedIcon /> Share
-            </Button>
-            <Button>
-              <AddTaskOutlinedIcon /> Save
-            </Button>
           </Buttons>
         </Details>
         <Hr />
@@ -261,7 +252,7 @@ const Video = () => {
             <Image src={user.img} />
             <ChannelDetail>
               <ChannelName>{user.name}</ChannelName>
-              <ChannelCounter>{user.subscribers}</ChannelCounter>
+              <ChannelCounter>{user.subscribers + " subscribers"}</ChannelCounter>
               <Description>
                 {video?.description}
               </Description>

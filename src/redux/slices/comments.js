@@ -22,7 +22,6 @@ const commentsSlice = createSlice({
       state.error = true;
     },
     addComment: (state, action) => {
-      console.log(action.payload);
       if (state.comments === null) {
         state.comments = [action.payload];
       } else {

@@ -3,13 +3,13 @@ import styled from "styled-components";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import IMG from "../img/background.png"
 import ExitToAppOutlined from "@mui/icons-material/ExitToAppOutlined";
 import { logout } from "../redux/slices/user";
+import Upload from "./Upload";
 
 const Container = styled.div`
   position: sticky;
@@ -26,6 +26,7 @@ const Wrapper = styled.div`
   height: 100%;
   padding: 0px 20px;
   position: relative;
+  color: ${({ theme }) => theme.text};
 `;
 
 const Search = styled.div`
@@ -103,6 +104,8 @@ const PopupOption = styled.h3`
 const Navbar = () => {
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isUploadOpen, setIsUploadOpen] = React.useState(false);
+
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
@@ -117,9 +120,9 @@ const Navbar = () => {
           </Search>
           {user ?
             (
-              <User onClick={() => setIsOpen(true)}>
-                <Avatar src={user.img || IMG} />
-                <VideoCallOutlinedIcon />
+              <User>
+                <Avatar src={user.img || IMG} onClick={() => setIsOpen(true)} />
+                <VideoCallOutlinedIcon onClick={() => setIsUploadOpen(true)} />
                 {user.name}
               </User>
             ) : (
@@ -139,6 +142,9 @@ const Navbar = () => {
           <PopupOption onClick={() => setIsOpen(false)}> Close <CloseOutlinedIcon /></PopupOption>
         </Popup>
       </div>
+      {isUploadOpen &&
+        <Upload open={setIsUploadOpen} />
+      }
     </>
   );
 };
