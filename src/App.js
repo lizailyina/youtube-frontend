@@ -33,6 +33,7 @@ function App() {
             <Routes>
               <Route path="/" exact element={<Home type="random" />} />
               <Route path="/trend" exact element={<Home type="trend" />} />
+              <Route path="/lib" exact element={<Home type="lib" />} />
               <Route path="/categories" exact element={<Home type="categories" />} />
               <Route path="/search" exact element={<Home type="search" />} />
               <Route path="/sub" exact element={<Home type="sub" />} />

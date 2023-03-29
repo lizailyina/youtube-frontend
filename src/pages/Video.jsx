@@ -5,7 +5,6 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Comments from "../components/Comments";
-import Card from "../components/Card";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import en from 'javascript-time-ago/locale/en'
@@ -145,8 +144,11 @@ const Video = () => {
     const fetchData = async () => {
       dispatch(fetchStart());
       try {
-        const videoData = await axios.get(`/videos/find/${location}`);
+        const videoData = await axios.get(`/videos/find/${location}`).then(
+
+        );
         const userData = await axios.get(`/users/find/${videoData.data.userId}`);
+        await axios.put(`/videos/view/${videoData.data._id}`)
         dispatch(fetchSucces(videoData.data));
         setUser(userData.data);
       } catch (err) {
@@ -161,7 +163,7 @@ const Video = () => {
 
   const handleLike = async () => {
     try {
-      await axios.put(`/users/like/${video._id}`);
+      await axios.put(`/ users / like / ${video._id}`);
       dispatch(like(currentUser));
     } catch (err) {
       console.log(err);
@@ -171,7 +173,7 @@ const Video = () => {
 
   const handleUnlike = async () => {
     try {
-      await axios.put(`/users/unlike/${video._id}`);
+      await axios.put(`/ users / unlike / ${video._id}`);
       dispatch(unlike(currentUser));
     } catch (err) {
       console.log(err);
@@ -181,7 +183,7 @@ const Video = () => {
 
   const handleDislike = async () => {
     try {
-      await axios.put(`/users/dislike/${video._id}`);
+      await axios.put(`/ users / dislike / ${video._id}`);
       dispatch(dislike(currentUser));
     } catch (err) {
       console.log(err);
@@ -191,7 +193,7 @@ const Video = () => {
 
   const handleUndislike = async () => {
     try {
-      await axios.put(`/users/undislike/${video._id}`);
+      await axios.put(`/ users / undislike / ${video._id}`);
       dispatch(undislike(currentUser));
     } catch (err) {
       console.log(err);
@@ -201,11 +203,11 @@ const Video = () => {
 
   const handleSub = async () => {
     if (currentUser.subscribed.includes(user._id)) {
-      await axios.put(`/users/unsub/${user._id}`);
+      await axios.put(`/ users / unsub / ${user._id}`);
       dispatch(unsub(user));
       setUser((prev) => { return { ...prev, subscribers: prev.subscribers - 1 } })
     } else {
-      await axios.put(`/users/sub/${user._id}`);
+      await axios.put(`/ users / sub / ${user._id}`);
       dispatch(sub(user));
       setUser((prev) => { return { ...prev, subscribers: prev.subscribers + 1 } })
     }

@@ -4,12 +4,14 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import IMG from "../img/background.png"
 import ExitToAppOutlined from "@mui/icons-material/ExitToAppOutlined";
 import { logout } from "../redux/slices/user";
 import Upload from "./Upload";
+import UploadAvatar from "./UploadAvatar";
 
 const Container = styled.div`
   position: sticky;
@@ -104,6 +106,7 @@ const PopupOption = styled.h3`
 const Navbar = () => {
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isAvatarOpen, setIsAvatarOpen] = React.useState(false);
   const [isUploadOpen, setIsUploadOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
 
@@ -141,12 +144,17 @@ const Navbar = () => {
       </Container >
       <div style={isOpen ? {} : { visibility: "hidden" }}>
         <Popup>
+          <PopupOption onClick={() => setIsAvatarOpen(true)}> Change Avatar <AccountBoxIcon /></PopupOption>
           <PopupOption onClick={() => { dispatch(logout()); setIsOpen(false); }}> Sign Out <ExitToAppOutlined /></PopupOption>
           <PopupOption onClick={() => setIsOpen(false)}> Close <CloseOutlinedIcon /></PopupOption>
         </Popup>
       </div>
       {isUploadOpen &&
         <Upload open={setIsUploadOpen} />
+      }
+      {
+        isAvatarOpen &&
+        <UploadAvatar open={setIsAvatarOpen} />
       }
     </>
   );

@@ -31,9 +31,12 @@ const userSlice = createSlice({
       state.user.subscribed.splice(state.user.subscribed.findIndex(
         (userId) => (userId === action.payload._id)), 1);
     },
+    avatar: (state, action) => {
+      state.user.img = action.payload;
+    }
   }
 })
 
-export const { loginStart, loginSucces, loginError, logout, sub, unsub } = userSlice.actions
+export const { avatar, loginStart, loginSucces, loginError, logout, sub, unsub } = userSlice.actions
 
 export default userSlice.reducer;

@@ -2,12 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCJQ5FTd979cSW6XlM12o34QuTCXtfZ2HQ",
-  authDomain: "clone-3105d.firebaseapp.com",
-  projectId: "clone-3105d",
-  storageBucket: "clone-3105d.appspot.com",
-  messagingSenderId: "1057766610000",
-  appId: "1:1057766610000:web:021d736c7d2ed1e3522d55"
+  apiKey: "AIzaSyB1-OwRZnHoI8hxc0TLWO1LKFwVMrtyyxA",
+  authDomain: "newtube-a467a.firebaseapp.com",
+  projectId: "newtube-a467a",
+  storageBucket: "newtube-a467a.appspot.com",
+  messagingSenderId: "950434513537",
+  appId: "1:950434513537:web:84e17cc1c9b8e1734b0380",
+  measurementId: "G-QTX77VZM3F"
 };
 
 const app = initializeApp(firebaseConfig);
