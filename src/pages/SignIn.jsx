@@ -90,7 +90,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/signin`, { name: loginName, password: loginPassword });
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/signin`, { name: loginName, password: loginPassword }, { withCredentials: true });
       dispatch(loginSucces(data));
     } catch (err) {
       console.log(err);
@@ -103,7 +103,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart())
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/signup`, { name, email, password });
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/signup`, { name, email, password }, { withCredentials: true });
       dispatch(loginSucces(data));
     } catch (err) {
       console.log(err);
@@ -115,7 +115,7 @@ const SignIn = () => {
   const signInWithGoogle = () => {
     dispatch(loginStart())
     signInWithPopup(auth, provider).then(async (res) => {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/google`, { name: res.user.displayName, email: res.user.email, img: res.user.photoURL })
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/google`, { name: res.user.displayName, email: res.user.email, img: res.user.photoURL }, { withCredentials: true })
       dispatch(loginSucces(data));
     }).catch((err) => {
       console.log(err);
