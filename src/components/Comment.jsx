@@ -50,7 +50,7 @@ const Comment = ({ comment }) => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/users/find/${comment.userId}`)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}users/find/${comment.userId}`)
         setUser(data);
       } catch (err) {
         console.log(err);

@@ -65,7 +65,7 @@ const Card = ({ type, video }) => {
 
   React.useEffect(() => {
     const fetchVideos = async () => {
-      const { data } = await axios.get(`/users/find/${video.userId}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}users/find/${video.userId}`);
       setUser(data);
     }
 

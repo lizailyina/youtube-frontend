@@ -110,7 +110,7 @@ const UploadAvatar = ({ open }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/users/${user._id}`, { ...user, img: link });
+      await axios.put(`${process.env.REACT_APP_API_URL}users/${user._id}`, { ...user, img: link });
       dispatch(avatar(link));
       open(false);
     } catch (err) {

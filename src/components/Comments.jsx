@@ -44,7 +44,7 @@ const Comments = ({ videoId }) => {
     const fetchData = async () => {
       dispatch(fetchStart());
       try {
-        const commentsData = await axios.get(`/comments/${videoId}`);
+        const commentsData = await axios.get(`${process.env.REACT_APP_API_URL}comments/${videoId}`);
         dispatch(fetchSucces(commentsData.data));
       } catch (err) {
         alert(err);
@@ -63,7 +63,7 @@ const Comments = ({ videoId }) => {
       videoId
     }
     try {
-      const { data } = await axios.post("/comments", comment);
+      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}comments`, comment);
       dispatch(addComment(data));
       setValue("");
     } catch (err) {

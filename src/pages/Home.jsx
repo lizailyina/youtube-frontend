@@ -20,15 +20,15 @@ const Home = ({ type }) => {
     const fetchVideos = async () => {
       if (type === "categories") {
         const category = location.search.substring(10);
-        const { data } = await axios.get(`videos/${type}?category=${category}`)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}videos/${type}?category=${category}`)
         setVideos(data);
       } else if (type == "search") {
         const q = location.search.substring(3);
         console.log(q);
-        const { data } = await axios.get(`videos/${type}?q=${q}`)
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}videos/${type}?q=${q}`)
         setVideos(data);
       } else {
-        const { data } = await axios.get(`videos/${type}`);
+        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}videos/${type}`);
         setVideos(data);
       }
     }

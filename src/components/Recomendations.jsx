@@ -15,7 +15,7 @@ const Recomendations = ({ parentVideo }) => {
 
   React.useEffect(() => {
     const fetchVideos = async () => {
-      const { data } = await axios.get(`/videos/tag?tags=${video.tags}`);
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}videos/tag?tags=${video.tags}`);
       setVideos(data);
     }
     fetchVideos();
