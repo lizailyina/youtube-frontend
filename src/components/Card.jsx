@@ -65,13 +65,12 @@ const Card = ({ type, video }) => {
 
   React.useEffect(() => {
     const fetchVideos = async () => {
-      const { data } = await axios.get(`users/find/${video.userId}`);
+      const { data } = await axios.get(`/users/find/${video.userId}`);
       setUser(data);
     }
 
     fetchVideos();
   }, [video.userId])
-
 
   return (
     <Link to={`/video/${video._id}`} style={{ textDecoration: "none" }}>
@@ -83,7 +82,7 @@ const Card = ({ type, video }) => {
         <Details type={type}>
           <ChannelImage
             type={type}
-            src={user.imageUrl}
+            src={user.img}
           />
           <Texts>
             <Title>{video.title}</Title>

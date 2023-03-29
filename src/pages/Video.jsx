@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { dislike, fetchError, fetchStart, fetchSucces, like, undislike, unlike } from "../redux/slices/video";
 import { sub, unsub } from "../redux/slices/user";
 import TimeAgo from 'javascript-time-ago'
+import Recomendations from "../components/Recomendations";
 
 TimeAgo.addLocale(en);
 
@@ -65,9 +66,6 @@ const Hr = styled.hr`
   border: 0.5px solid ${({ theme }) => theme.soft};
 `;
 
-const Recommendation = styled.div`
-  flex: 2;
-`;
 const Channel = styled.div`
   display: flex;
   justify-content: space-between;
@@ -275,21 +273,7 @@ const Video = () => {
         <Hr />
         <Comments videoId={video._id} />
       </Content>
-      <Recommendation>
-        {/* <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" /> */}
-      </Recommendation>
+      <Recomendations parentVideo={video} />
     </Container>
   );
 };

@@ -80,6 +80,8 @@ const Title = styled.h2`
   margin-bottom: 20px;
 `;
 
+
+
 const Menu = ({ darkMode, setDarkMode }) => {
 
   const user = useSelector((state) => state.user);
@@ -136,35 +138,49 @@ const Menu = ({ darkMode, setDarkMode }) => {
             <Hr />
           </>
         }
-        <Title>BEST OF LAMATUBE</Title>
-        <Item>
-          <LibraryMusicOutlinedIcon />
-          Music
-        </Item>
-        <Item>
-          <SportsBasketballOutlinedIcon />
-          Sports
-        </Item>
-        <Item>
-          <SportsEsportsOutlinedIcon />
-          Gaming
-        </Item>
-        <Item>
-          <MovieOutlinedIcon />
-          Movies
-        </Item>
-        <Item>
-          <ArticleOutlinedIcon />
-          News
-        </Item>
-        <Item>
-          <LiveTvOutlinedIcon />
-          Live
-        </Item>
-        <Item>
-          <MoreHorizIcon />
-          Others
-        </Item>
+        <Title>BEST OF NEWTUBE</Title>
+        <Link to="/categories?category=0" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <LibraryMusicOutlinedIcon />
+            Music
+          </Item>
+        </Link>
+        <Link to="/categories?category=1" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <SportsEsportsOutlinedIcon />
+            Gaming
+          </Item>
+        </Link>
+        <Link to="/categories?category=2" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <MovieOutlinedIcon />
+            Movies
+          </Item>
+        </Link>
+        <Link to="/categories?category=3" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <LiveTvOutlinedIcon />
+            Live
+          </Item>
+        </Link>
+        <Link to="/categories?category=4" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <ArticleOutlinedIcon />
+            News
+          </Item>
+        </Link>
+        <Link to="/categories?category=5" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <SportsBasketballOutlinedIcon />
+            Sports
+          </Item>
+        </Link>
+        <Link to="/categories?category=6" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <MoreHorizIcon />
+            Others
+          </Item>
+        </Link>
         <Hr />
         <Item onClick={() => setDarkMode(!darkMode)}>
           <SettingsBrightnessOutlinedIcon />

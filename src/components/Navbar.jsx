@@ -105,6 +105,7 @@ const Navbar = () => {
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [isUploadOpen, setIsUploadOpen] = React.useState(false);
+  const [search, setSearch] = React.useState("");
 
   const dispatch = useDispatch();
 
@@ -115,8 +116,10 @@ const Navbar = () => {
       <Container>
         <Wrapper>
           <Search>
-            <Input placeholder="Search" />
-            <SearchOutlinedIcon />
+            <Input placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <Link to={`search?q=${search}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <SearchOutlinedIcon />
+            </Link>
           </Search>
           {user ?
             (
