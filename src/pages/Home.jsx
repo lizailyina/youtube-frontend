@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "../components/Card";
-import axios from "axios"
+import axios from '../axios.js';
 import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
@@ -20,15 +20,15 @@ const Home = ({ type }) => {
     const fetchVideos = async () => {
       if (type === "categories") {
         const category = location.search.substring(10);
-        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}videos/${type}?category=${category}`)
+        const { data } = await axios.get(`/videos/${type}?category=${category}`)
         setVideos(data);
       } else if (type == "search") {
         const q = location.search.substring(3);
         console.log(q);
-        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}videos/${type}?q=${q}`)
+        const { data } = await axios.get(`/videos/${type}?q=${q}`)
         setVideos(data);
       } else {
-        const { data } = await axios.get(`${process.env.REACT_APP_API_URL}videos/${type}`);
+        const { data } = await axios.get(`/videos/${type}`);
         setVideos(data);
       }
     }

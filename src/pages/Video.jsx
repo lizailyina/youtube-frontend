@@ -6,7 +6,7 @@ import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutl
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import Comments from "../components/Comments";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import axios from '../axios.js';
 import en from 'javascript-time-ago/locale/en'
 import { useDispatch, useSelector } from "react-redux";
 import { dislike, fetchError, fetchStart, fetchSucces, like, undislike, unlike } from "../redux/slices/video";
@@ -144,10 +144,10 @@ const Video = () => {
     const fetchData = async () => {
       dispatch(fetchStart());
       try {
-        const videoData = await axios.get(`${process.env.REACT_APP_API_URL}videos/find/${location}`).then(
+        const videoData = await axios.get(`/videos/find/${location}`).then(
 
         );
-        const userData = await axios.get(`${process.env.REACT_APP_API_URL}users/find/${videoData.data.userId}`);
+        const userData = await axios.get(`/users/find/${videoData.data.userId}`);
         await axios.put(`/videos/view/${videoData.data._id}`)
         dispatch(fetchSucces(videoData.data));
         setUser(userData.data);
@@ -163,7 +163,7 @@ const Video = () => {
 
   const handleLike = async () => {
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}users/like/${video._id}`);
+      await axios.put(`/users/like/${video._id}`);
       dispatch(like(currentUser));
     } catch (err) {
       console.log(err);
@@ -173,7 +173,7 @@ const Video = () => {
 
   const handleUnlike = async () => {
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}users/unlike/${video._id}`);
+      await axios.put(`/users/unlike/${video._id}`);
       dispatch(unlike(currentUser));
     } catch (err) {
       console.log(err);
@@ -183,7 +183,7 @@ const Video = () => {
 
   const handleDislike = async () => {
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}users/dislike/${video._id}`);
+      await axios.put(`/users/dislike/${video._id}`);
       dispatch(dislike(currentUser));
     } catch (err) {
       console.log(err);
@@ -193,7 +193,7 @@ const Video = () => {
 
   const handleUndislike = async () => {
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}users/undislike/${video._id}`);
+      await axios.put(`/users/undislike/${video._id}`);
       dispatch(undislike(currentUser));
     } catch (err) {
       console.log(err);
@@ -203,11 +203,11 @@ const Video = () => {
 
   const handleSub = async () => {
     if (currentUser.subscribed.includes(user._id)) {
-      await axios.put(`${process.env.REACT_APP_API_URL}users/unsub/${user._id}`);
+      await axios.put(`/users/unsub/${user._id}`);
       dispatch(unsub(user));
       setUser((prev) => { return { ...prev, subscribers: prev.subscribers - 1 } })
     } else {
-      await axios.put(`${process.env.REACT_APP_API_URL}users/sub/${user._id}`);
+      await axios.put(`$/users/sub/${user._id}`);
       dispatch(sub(user));
       setUser((prev) => { return { ...prev, subscribers: prev.subscribers + 1 } })
     }

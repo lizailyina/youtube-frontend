@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from '../firebase.js'
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import axios from '../axios.js';
 import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
@@ -162,7 +162,7 @@ const Upload = ({ open }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}videos`, { ...inputs, userId: user._id })
+      const { data } = await axios.post(`/videos`, { ...inputs, userId: user._id })
       open(false);
       data && navigate(`video/${data._id}`);
     } catch (err) {

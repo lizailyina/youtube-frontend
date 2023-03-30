@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from '../axios.js';
 import React from "react";
 import styled from "styled-components";
 import TimeAgo from 'javascript-time-ago'

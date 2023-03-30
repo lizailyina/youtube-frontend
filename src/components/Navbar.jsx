@@ -145,7 +145,7 @@ const Navbar = () => {
       <div style={isOpen ? {} : { visibility: "hidden" }}>
         <Popup>
           <PopupOption onClick={() => setIsAvatarOpen(true)}> Change Avatar <AccountBoxIcon /></PopupOption>
-          <PopupOption onClick={() => { dispatch(logout()); setIsOpen(false); }}> Sign Out <ExitToAppOutlined /></PopupOption>
+          <PopupOption onClick={() => { dispatch(logout()); setIsOpen(false); window.localStorage.removeItem('token'); }}> Sign Out <ExitToAppOutlined /></PopupOption>
           <PopupOption onClick={() => setIsOpen(false)}> Close <CloseOutlinedIcon /></PopupOption>
         </Popup>
       </div>

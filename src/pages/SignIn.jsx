@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from '../axios.js';
 import { signInWithPopup } from "firebase/auth";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,8 +90,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/signin`, { name: loginName, password: loginPassword });
-      console.log(data);
+      const { data } = await axios.post(`/auth/signin`, { name: loginName, password: loginPassword });
       if ('token' in data) {
         window.localStorage.setItem('token', data.token);
       }
@@ -107,7 +106,10 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart())
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/signup`, { name, email, password });
+      const { data } = await axios.post(`/auth/signup`, { name, email, password });
+      if ('token' in data) {
+        window.localStorage.setItem('token', data.token);
+      }
       dispatch(loginSucces(data));
     } catch (err) {
       console.log(err);
@@ -119,7 +121,10 @@ const SignIn = () => {
   const signInWithGoogle = () => {
     dispatch(loginStart())
     signInWithPopup(auth, provider).then(async (res) => {
-      const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/google`, { name: res.user.displayName, email: res.user.email, img: res.user.photoURL })
+      const { data } = await axios.post(`/auth/google`, { name: res.user.displayName, email: res.user.email, img: res.user.photoURL })
+      if ('token' in data) {
+        window.localStorage.setItem('token', data.token);
+      }
       dispatch(loginSucces(data));
     }).catch((err) => {
       console.log(err);

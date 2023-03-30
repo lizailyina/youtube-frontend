@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from '../firebase.js'
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+import axios from '../axios.js';
 import { avatar } from '../redux/slices/user.js';
 
 const Container = styled.div`
@@ -110,7 +110,7 @@ const UploadAvatar = ({ open }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}users/${user._id}`, { ...user, img: link });
+      await axios.put(`/users/${user._id}`, { ...user, img: link });
       dispatch(avatar(link));
       open(false);
     } catch (err) {
