@@ -90,8 +90,11 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-
       const { data } = await axios.post(`${process.env.REACT_APP_API_URL}auth/signin`, { name: loginName, password: loginPassword });
+      console.log(data);
+      if ('token' in data) {
+        window.localStorage.setItem('token', data.token);
+      }
       dispatch(loginSucces(data));
     } catch (err) {
       console.log(err);
