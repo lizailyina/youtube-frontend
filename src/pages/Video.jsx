@@ -144,9 +144,7 @@ const Video = () => {
     const fetchData = async () => {
       dispatch(fetchStart());
       try {
-        const videoData = await axios.get(`/videos/find/${location}`).then(
-
-        );
+        const videoData = await axios.get(`/videos/find/${location}`);
         const userData = await axios.get(`/users/find/${videoData.data.userId}`);
         await axios.put(`/videos/view/${videoData.data._id}`)
         dispatch(fetchSucces(videoData.data));
