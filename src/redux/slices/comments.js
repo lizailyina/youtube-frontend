@@ -11,13 +11,15 @@ const commentsSlice = createSlice({
   initialState,
   reducers: {
     fetchStart: (state) => {
-      state.loading = true
+      state.comments = null;
+      state.loading = true;
     },
     fetchSucces: (state, action) => {
       state.loading = false;
       state.comments = action.payload;
     },
     fetchError: (state) => {
+      state.comments = null;
       state.loading = true;
       state.error = true;
     },

@@ -59,7 +59,7 @@ const Comments = ({ videoId }) => {
   const handleAdd = async () => {
     const comment = {
       description: value,
-      userId: user._id,
+      userId: user?._id || null,
       videoId
     }
     try {
@@ -67,7 +67,7 @@ const Comments = ({ videoId }) => {
       dispatch(addComment(data));
       setValue("");
     } catch (err) {
-      alert(err);
+      alert("Please Log In or Create an account to leave a comment.");
       console.log(err);
     }
   }

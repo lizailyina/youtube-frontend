@@ -166,7 +166,7 @@ const Video = () => {
       dispatch(like(currentUser));
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert("Please Log in or Create an Account to like or dislike.")
     }
   }
 
@@ -176,7 +176,7 @@ const Video = () => {
       dispatch(unlike(currentUser));
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert("Please Log in or Create an Account to like or dislike.")
     }
   }
 
@@ -186,7 +186,7 @@ const Video = () => {
       dispatch(dislike(currentUser));
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert("Please Log in or Create an Account to like or dislike.")
     }
   }
 
@@ -196,19 +196,27 @@ const Video = () => {
       dispatch(undislike(currentUser));
     } catch (err) {
       console.log(err);
-      alert(err);
+      alert("Please Log in or Create an Account to like or dislike.")
     }
   }
 
   const handleSub = async () => {
-    if (currentUser.subscribed.includes(user._id)) {
-      await axios.put(`/users/unsub/${user._id}`);
-      dispatch(unsub(user));
-      setUser((prev) => { return { ...prev, subscribers: prev.subscribers - 1 } })
-    } else {
-      await axios.put(`/users/sub/${user._id}`);
-      dispatch(sub(user));
-      setUser((prev) => { return { ...prev, subscribers: prev.subscribers + 1 } })
+    if (!currentUser) {
+      return alert("Please Log in or Create an Account to subscribe.");
+    }
+    try {
+      if (currentUser.subscribed.includes(user._id)) {
+        await axios.put(`/users/unsub/${user._id}`);
+        dispatch(unsub(user));
+        setUser((prev) => { return { ...prev, subscribers: prev.subscribers - 1 } })
+      } else {
+        await axios.put(`/users/sub/${user._id}`);
+        dispatch(sub(user));
+        setUser((prev) => { return { ...prev, subscribers: prev.subscribers + 1 } })
+      }
+    } catch (err) {
+      console.log(err);
+      alert("Please Log in or Create an Account to subscribe.")
     }
   }
 
@@ -258,7 +266,7 @@ const Video = () => {
             </ChannelDetail>
           </ChannelInfo>
           {
-            currentUser && currentUser._id !== user._id &&
+            currentUser?._id !== user._id &&
             <>
               {
 
@@ -274,7 +282,7 @@ const Video = () => {
         <Hr />
         <Comments videoId={video?._id} />
       </Content>
-      <Recomendations parentVideo={video} />
+      <Recomendations />
     </Container>
   );
 };

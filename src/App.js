@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import Menu from "./components/Menu";
 import Navbar from "./components/Navbar";
@@ -7,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Video from "./pages/Video";
 import SignIn from "./pages/SignIn";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -21,12 +21,13 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+
+  const { theme } = useSelector((state) => state.theme);
 
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={theme ? darkTheme : lightTheme}>
       <Container>
-        <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Menu />
         <Main>
           <Navbar />
           <Wrapper>

@@ -11,13 +11,15 @@ const videoSlice = createSlice({
   initialState,
   reducers: {
     fetchStart: (state) => {
-      state.loading = true
+      state.video = null;
+      state.loading = true;
     },
     fetchSucces: (state, action) => {
       state.loading = false;
       state.video = action.payload;
     },
     fetchError: (state) => {
+      state.video = null;
       state.loading = true;
       state.error = true;
     },

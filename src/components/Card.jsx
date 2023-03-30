@@ -11,7 +11,7 @@ TimeAgo.addLocale(en)
 const timeAgo = new TimeAgo('en-US')
 
 const Container = styled.div`
-  width: ${(props) => props.type !== "sm" && "360px"};
+  width: ${(props) => props.type !== "sm" && "330px"};
   margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
   cursor: pointer;
   display: ${(props) => props.type === "sm" && "flex"};

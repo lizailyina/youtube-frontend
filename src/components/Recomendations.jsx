@@ -8,24 +8,24 @@ const Container = styled.div`
   flex: 2;
 `;
 
-const Recomendations = ({ parentVideo }) => {
+const Recomendations = () => {
   const [videos, setVideos] = React.useState([]);
 
   const { video } = useSelector((state) => state.video);
 
   React.useEffect(() => {
     const fetchVideos = async () => {
-      const { data } = await axios.get(`/videos/tag?tags=${video.tags}`);
+      const { data } = await axios.get(`/videos/tag?tags=${video?.tags}`, { ...video });
       setVideos(data);
     }
     fetchVideos();
-  }, [video])
+  }, [])
 
 
   return (
     <Container>
       {
-        videos?.filter((obj) => obj._id !== parentVideo._id).map((obj) =>
+        videos?.filter((obj) => obj._id !== video?._id).map((obj) =>
           <Card video={obj} key={obj._id} />
         )
       }

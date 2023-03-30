@@ -15,7 +15,8 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toggle } from "../redux/slices/theme";
 const Container = styled.div`
   flex: 1;
   background-color: ${({ theme }) => theme.bgLighter};
@@ -81,9 +82,11 @@ const Title = styled.h2`
 
 
 
-const Menu = ({ darkMode, setDarkMode }) => {
+const Menu = () => {
 
-  const user = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
+  const dispatch = useDispatch();
 
   return (
     <Container>
@@ -126,7 +129,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
         </Item>*/}
         <Hr />
         {
-          !user.user &&
+          !user &&
           <>
             <Login>
               Sign in to like videos, comment, and subscribe.
@@ -184,9 +187,9 @@ const Menu = ({ darkMode, setDarkMode }) => {
           </Item>
         </Link>
         <Hr />
-        <Item onClick={() => setDarkMode(!darkMode)}>
+        <Item onClick={() => dispatch(toggle())}>
           <SettingsBrightnessOutlinedIcon />
-          {darkMode ? "Light" : "Dark"} Mode
+          {theme ? "Light" : "Dark"} Mode
         </Item>
       </Wrapper>
     </Container>

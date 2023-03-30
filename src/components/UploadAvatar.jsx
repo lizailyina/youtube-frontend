@@ -69,6 +69,7 @@ const UploadAvatar = ({ open }) => {
 
   const { user } = useSelector((state) => (state.user));
 
+
   React.useEffect(() => {
     const uploadFile = (file) => {
       const storage = getStorage(app);
@@ -96,15 +97,15 @@ const UploadAvatar = ({ open }) => {
         () => {
           getDownloadURL(uploadTaskRef.current.snapshot.ref).then((downloadURL) => {
             setLink(downloadURL);
-            console.log(link);
-            uploadTaskRef.current = null;
+            // console.log(link);
+            // uploadTaskRef.current = null;
           });
         }
       );
     }
 
     if (img) uploadFile(img);
-  }, [img, link]);
+  }, [img]);
 
 
   const handleSubmit = async (e) => {
@@ -133,9 +134,8 @@ const UploadAvatar = ({ open }) => {
               `Uploading... ${imgPerc}%`
             ) : (
               "Uploaded succesfully."
-            ) : uploadTaskRef.current ?
-            "Please, wait for video to upload." :
-            <Input type="file" accept="image/*" onChange={(e) => setImg(e.target.files[0])} />
+            ) :
+            < Input type="file" accept="image/*" onChange={(e) => setImg(e.target.files[0])} />
         }
         <Button type="submit"> Upload </Button>
       </Wrapper>
