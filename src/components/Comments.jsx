@@ -54,7 +54,7 @@ const Comments = ({ videoId }) => {
     }
 
     fetchData();
-  }, []);
+  }, [videoId, dispatch]);
 
   const handleAdd = async () => {
     const comment = {

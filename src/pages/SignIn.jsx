@@ -84,7 +84,7 @@ const SignIn = () => {
 
   React.useEffect(() => {
     if (user) navigate("/");
-  }, [user])
+  }, [user, navigate])
 
   const handleSignIn = async (e) => {
     e.preventDefault();

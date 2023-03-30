@@ -57,7 +57,7 @@ const Comment = ({ comment }) => {
       }
     }
     fetchData();
-  }, [])
+  }, [comment])
 
   return (
     <Container>

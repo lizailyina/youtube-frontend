@@ -22,7 +22,7 @@ const Home = ({ type }) => {
         const category = location.search.substring(10);
         const { data } = await axios.get(`/videos/${type}?category=${category}`)
         setVideos(data);
-      } else if (type == "search") {
+      } else if (type === "search") {
         const q = location.search.substring(3);
         console.log(q);
         const { data } = await axios.get(`/videos/${type}?q=${q}`)

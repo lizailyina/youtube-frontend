@@ -69,42 +69,42 @@ const UploadAvatar = ({ open }) => {
 
   const { user } = useSelector((state) => (state.user));
 
-  const uploadFile = (file, urlType) => {
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + file.name;
-    const storageRef = ref(storage, fileName);
-
-    uploadTaskRef.current = uploadBytesResumable(storageRef, file);
-
-    uploadTaskRef.current.on('state_changed',
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setImgPerc(Math.round(progress))
-        switch (snapshot.state) {
-          case 'paused':
-            console.log('Upload is paused');
-            break;
-          case 'running':
-            console.log('Upload is running');
-            break;
-          default:
-            break;
-        }
-      },
-      (error) => { },
-      () => {
-        getDownloadURL(uploadTaskRef.current.snapshot.ref).then((downloadURL) => {
-          setLink(downloadURL);
-          console.log(link);
-          uploadTaskRef.current = null;
-        });
-      }
-    );
-  }
-
   React.useEffect(() => {
-    img && uploadFile(img, "imageUrl");
-  }, [img]);
+    const uploadFile = (file) => {
+      const storage = getStorage(app);
+      const fileName = new Date().getTime() + file.name;
+      const storageRef = ref(storage, fileName);
+
+      uploadTaskRef.current = uploadBytesResumable(storageRef, file);
+
+      uploadTaskRef.current.on('state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setImgPerc(Math.round(progress))
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => { },
+        () => {
+          getDownloadURL(uploadTaskRef.current.snapshot.ref).then((downloadURL) => {
+            setLink(downloadURL);
+            console.log(link);
+            uploadTaskRef.current = null;
+          });
+        }
+      );
+    }
+
+    if (img) uploadFile(img);
+  }, [img, link]);
 
 
   const handleSubmit = async (e) => {
