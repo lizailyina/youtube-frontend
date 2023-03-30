@@ -80,7 +80,7 @@ const Comments = ({ videoId }) => {
         <SendIcon onClick={() => handleAdd()} />
       </NewComment>
       {
-        comments.map((obj) =>
+        comments?.map((obj) =>
           <Comment key={obj._id} comment={obj} />
         )
       }
