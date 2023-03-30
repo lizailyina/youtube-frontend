@@ -145,6 +145,7 @@ const Video = () => {
       dispatch(fetchStart());
       try {
         const videoData = await axios.get(`/videos/find/${location}`);
+        console.log(videoData);
         const userData = await axios.get(`/users/find/${videoData.data.userId}`);
         await axios.put(`/videos/view/${videoData.data._id}`)
         dispatch(fetchSucces(videoData.data));
@@ -215,7 +216,7 @@ const Video = () => {
     <Container>
       <Content>
         <VideoWrapper>
-          <VideoFrame src={video.videoUrl} controls autoPlay muted={false} />
+          <VideoFrame src={video?.videoUrl} controls autoPlay muted={false} />
         </VideoWrapper>
         <Title>{video?.title}</Title>
         <Details>
