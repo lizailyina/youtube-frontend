@@ -206,7 +206,7 @@ const Video = () => {
       dispatch(unsub(user));
       setUser((prev) => { return { ...prev, subscribers: prev.subscribers - 1 } })
     } else {
-      await axios.put(`$/users/sub/${user._id}`);
+      await axios.put(`/users/sub/${user._id}`);
       dispatch(sub(user));
       setUser((prev) => { return { ...prev, subscribers: prev.subscribers + 1 } })
     }
