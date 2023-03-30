@@ -4,6 +4,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import VideoCallOutlinedIcon from '@mui/icons-material/VideoCallOutlined';
+import MenuIcon from '@mui/icons-material/Menu';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -127,9 +128,10 @@ const Navbar = () => {
           {user ?
             (
               <User>
-                <Avatar src={user.img || IMG} onClick={() => setIsOpen(true)} />
-                <VideoCallOutlinedIcon onClick={() => setIsUploadOpen(true)} />
+                <Avatar src={user.img || IMG} />
                 {user.name}
+                <VideoCallOutlinedIcon onClick={() => setIsUploadOpen(true)} />
+                <MenuIcon onClick={() => setIsOpen(true)} />
               </User>
             ) : (
               <Link to="signin" style={{ textDecoration: "none" }}>
