@@ -272,7 +272,7 @@ const Video = () => {
           }
         </Channel>
         <Hr />
-        <Comments videoId={video._id} />
+        <Comments videoId={video?._id} />
       </Content>
       <Recomendations parentVideo={video} />
     </Container>
