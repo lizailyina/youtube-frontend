@@ -262,7 +262,7 @@ const Video = () => {
             <>
               {
 
-                currentUser?.subscribed.includes(user._id) ? (
+                currentUser?.subscribed?.includes(user._id) ? (
                   <Subscribed onClick={handleSub}>SUBSCRIBED</Subscribed>
                 ) : (
                   <Subscribe onClick={handleSub}>SUBSCRIBE</Subscribe>
